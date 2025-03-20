@@ -2,6 +2,12 @@
 #include "raylib.h"
 
 int main() {
-    printf("Hello, world!");
+    InitWindow(360, 480, "Better Doodle Jump");
+
+    while (!WindowShouldClose()) {
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
+        EndDrawing();
+    }
     return 0;
 }
