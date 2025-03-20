@@ -1,8 +1,12 @@
 #include <stdio.h>
 #include "raylib.h"
+#include "character.h"
+
+const int screenwidth = 270;
+const int screenheight = 480;
 
 int main() {
-    InitWindow(360, 480, "Better Doodle Jump");
+    InitWindow(screenwidth, screenheight, "Better Doodle Jump");
 
     while (!WindowShouldClose()) {
         BeginDrawing();
