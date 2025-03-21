@@ -4,16 +4,6 @@
 #include "constants.h"
 
 int main() {
-<<<<<<< HEAD
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Better Doodle Jump");
-    SetTargetFPS(60);
-
-    while (!WindowShouldClose()) {
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-        if (GetFPS() < 100) {
-            drawCharacter(20, 20);
-=======
     SetTargetFPS(60);
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Better Doodle Jump");
 
@@ -41,7 +31,6 @@ int main() {
         ClearBackground(RAYWHITE);
         if (GetFPS() < 100) {
             drawCharacter(20, 20, currentColour);
->>>>>>> 38028f16df975f1e35995676c8b7f794b27481cf
         }
 
         DrawFPS(10, 10);

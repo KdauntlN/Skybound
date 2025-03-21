@@ -1,36 +1,11 @@
-<<<<<<< HEAD
-=======
 #define _USE_MATH_DEFINES
 #include <math.h>
->>>>>>> 38028f16df975f1e35995676c8b7f794b27481cf
 #include "character.h"
 #include "raylib.h"
 #include "constants.h"
 
 float x = SCREEN_WIDTH / 2;
 float y = SCREEN_HEIGHT / 2;
-<<<<<<< HEAD
-float dx = 0;
-float dy = 0;
-float speed = 1;
-float gravity = 0.5;
-
-void drawCharacter(int width, int height) {
-    DrawRectangle(x, y, width, height, RED);
-    dx += gravity;
-    y += dx;
-    if (IsKeyPressed(KEY_SPACE)) {
-        dx = -10;
-    }
-    if (dx > 50) {
-        dx = 50;
-    }
-    if (y > SCREEN_HEIGHT) {
-        y = -20;
-    }
-    if (y < -20) {
-        y = SCREEN_HEIGHT;
-=======
 double dx = 0;
 double dy = 0;
 float speed = 0.2;
@@ -87,6 +62,5 @@ void drawCharacter(int width, int height, Color playerColour) {
     }
     if (x > SCREEN_WIDTH + 20) {
         x = -25;
->>>>>>> 38028f16df975f1e35995676c8b7f794b27481cf
     }
 }
