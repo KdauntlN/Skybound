@@ -11,13 +11,16 @@ float gravity = 0.5;
 
 void drawCharacter(int width, int height) {
     DrawRectangle(x, y, width, height, RED);
-    dx += gravity;
-    y += dx;
-    if (IsKeyPressed(KEY_SPACE)) {
-        dx = -10;
+    dy += gravity;
+    y += dy;
+    if (IsKeyDown(KEY_SPACE)) {
+        dy -= 1;
     }
-    if (dx > 50) {
-        dx = 50;
+    if (dy > 50) {
+        dy = 50;
+    }
+    if (dy < -20) {
+        dy = -20;
     }
     if (y > SCREEN_HEIGHT) {
         y = -20;
