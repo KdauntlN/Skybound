@@ -4,8 +4,8 @@
 #include "constants.h"
 
 int main() {
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Better Doodle Jump");
     SetTargetFPS(60);
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Better Doodle Jump");
 
     while (!WindowShouldClose()) {
         BeginDrawing();
