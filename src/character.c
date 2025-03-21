@@ -10,10 +10,11 @@ double dx = 0;
 double dy = 0;
 float speed = 0.2;
 float gravity = 0.1;
-float rotation = 90;
-void drawCharacter(int width, int height, Color playerColour) {
+float rotation = 0;
+void drawCharacter(Texture2D texture, int width, int height, Color playerColour) {
     Rectangle rect = {x, y, width, height};
-    DrawRectanglePro(rect, (Vector2){10, 10}, rotation, playerColour);
+    Rectangle sourceRect = {0, 0, 20, 20};
+    DrawTexturePro(texture, sourceRect, rect, (Vector2){10, 10}, rotation, playerColour);
     dy += gravity;
     y += dy;
     x += dx;
@@ -24,8 +25,8 @@ void drawCharacter(int width, int height, Color playerColour) {
         dy *= 0.99;
     }
     if (IsKeyDown(KEY_W)) {
-        dy -= sinf(rotation * (M_PI / 180.0f)) * speed;
-        dx += cosf(rotation * (M_PI / 180.0f)) * -speed;
+        dy -= sinf((rotation + 90) * (M_PI / 180.0f)) * speed;
+        dx += cosf((rotation + 90) * (M_PI / 180.0f)) * -speed;
     }
     if (IsKeyDown(KEY_A)) {
         rotation -= 5;

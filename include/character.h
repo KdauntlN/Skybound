@@ -2,6 +2,6 @@
 #define CHARACTER_H
 #include "raylib.h"
 
-void drawCharacter(int width, int height, Color playerColour);
+void drawCharacter(Texture2D texture, int width, int height, Color playerColour);
 
 #endif

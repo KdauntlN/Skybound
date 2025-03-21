@@ -5,36 +5,38 @@
 
 int main() {
     SetTargetFPS(60);
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Better Doodle Jump");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Skybound");
 
-    Color colourList[] = {
-        RED,
-        ORANGE,
-        YELLOW,
-        GREEN,
-        BLUE,
-        PINK,
-        PURPLE
-    };
-    
-    int numColours = sizeof(colourList) / sizeof(colourList[0]);
+    Texture2D jetpackOn1 = LoadTexture("assets/jetpack-on-1.png");
+    Texture2D jetpackOn2 = LoadTexture("assets/jetpack-on-2.png");
+    Texture2D jetpackOff = LoadTexture("assets/jetpack-off.png");
 
-    int colourIndex = 0;
-    Color currentColour = colourList[colourIndex];
+    float frameTime = 0.0f;
+    int currentFrame = 0;
 
     while (!WindowShouldClose()) {
-        if (IsKeyPressed(KEY_SPACE)) {
-            colourIndex = (colourIndex + 1) % numColours;
-            currentColour = colourList[colourIndex];
-        }
-        BeginDrawing();
-        ClearBackground(RAYWHITE);
-        if (GetFPS() < 100) {
-            drawCharacter(20, 20, currentColour);
+        frameTime += GetFrameTime();
+
+        if (frameTime > 0.2f) {
+            currentFrame = !currentFrame;
+            frameTime = 0.0f;
         }
 
-        DrawFPS(10, 10);
+        BeginDrawing();
+        ClearBackground(RAYWHITE);
+        bool isJetpackOn = IsKeyDown(KEY_W);
+        if (isJetpackOn) {
+            drawCharacter(currentFrame ? jetpackOn2:jetpackOn1, 20, 20, WHITE);
+        }
+        else {
+            drawCharacter(jetpackOff, 20, 20, WHITE);
+        }
         EndDrawing();
     }
+
+    UnloadTexture(jetpackOn1);
+    UnloadTexture(jetpackOn2);
+    UnloadTexture(jetpackOff);
+    CloseWindow();
     return 0;
 }
