@@ -3,16 +3,18 @@
 #include "character.h"
 #include "constants.h"
 
-int x = SCREEN_WIDTH / 2;
-int y = SCREEN_HEIGHT / 2;
-
 int main() {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Better Doodle Jump");
+    SetTargetFPS(60);
 
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);
-        drawCharacter(x, y, 20, 20);
+        if (GetFPS() < 100) {
+            drawCharacter(20, 20);
+        }
+
+        DrawFPS(10, 10);
         EndDrawing();
     }
     return 0;
