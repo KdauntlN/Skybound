@@ -11,9 +11,9 @@ double dy = 0;
 float speed = 0.2;
 float gravity = 0.1;
 float rotation = 90;
-void drawCharacter(int width, int height) {
+void drawCharacter(int width, int height, Color playerColour) {
     Rectangle rect = {x, y, width, height};
-    DrawRectanglePro(rect, (Vector2){10, 10}, rotation, RED);
+    DrawRectanglePro(rect, (Vector2){10, 10}, rotation, playerColour);
     dy += gravity;
     y += dy;
     x += dx;
