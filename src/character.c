@@ -23,7 +23,7 @@ void drawCharacter(int width, int height, Color playerColour) {
     if (dy != 0) {
         dy *= 0.99;
     }
-    if (IsKeyDown(KEY_SPACE) || IsKeyDown(KEY_W)) {
+    if (IsKeyDown(KEY_W)) {
         dy -= sinf(rotation * (M_PI / 180.0f)) * speed;
         dx += cosf(rotation * (M_PI / 180.0f)) * -speed;
     }
