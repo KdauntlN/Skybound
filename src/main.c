@@ -73,6 +73,20 @@ void drawCharacter(Character player) {
     }
 }
 
+void updateCharacter(Character *player, float deltaTime) {
+
+    player->vy += player->gravity;
+
+    player->y += player->vy * deltaTime;
+
+    totalTime += deltaTime;
+        
+    if (totalTime > 0.25) {
+        player->textureNumber = !player->textureNumber;
+        totalTime = 0;
+    }
+}
+
 int main() {
 
     // Open the window
@@ -87,13 +101,8 @@ int main() {
         ClearBackground(RAYWHITE);  // Clear the screen
 
         timeSinceLastFrame = GetFrameTime();
-        totalTime += timeSinceLastFrame;
-        
-        if (totalTime > 0.25) {
-            player.textureNumber = !player.textureNumber;
-            totalTime = 0;
-        }
 
+        updateCharacter(&player, timeSinceLastFrame);
         drawCharacter(player);
 
         EndDrawing();
