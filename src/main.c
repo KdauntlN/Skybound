@@ -1,3 +1,6 @@
+#define _USE_MATH_DEFINES
+#include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include "raylib.h"
 
@@ -48,8 +51,8 @@ Character initCharacter() {
     character.vy = 0;
 
     // Initialize remaining variables
-    character.speed = 0.2;
-    character.gravity = 0.1;
+    character.speed = 400;
+    character.gravity = 200;
     character.rotation = 0;
 
     // Initialise textures
@@ -57,10 +60,16 @@ Character initCharacter() {
     character.jetpackOn1 = LoadTexture("assets/jetpack-on-1.png");
     character.jetpackOn2 = LoadTexture("assets/jetpack-on-2.png");
 
+    // Check if the textures have loaded properly
+    if (character.jetpackOff.id == 0 || character.jetpackOn1.id == 0 || character.jetpackOn2.id == 0) {
+        printf("Error: Failed to load one or more textures\n");
+        exit(1);
+    }
+
     //Set texture to 0
     character.textureNumber = 0;
 
-    // Return the charater
+    // Return the character
     return character;
 }
 
@@ -75,9 +84,23 @@ void drawCharacter(Character player) {
 
 void updateCharacter(Character *player, float deltaTime) {
 
-    player->vy += player->gravity;
+    // Move the player down due to gravity
+    player->vy += player->gravity * deltaTime;
+
+    if (IsKeyDown(KEY_A)) player->rotation -= 180 * deltaTime;
+    if (IsKeyDown(KEY_D)) player->rotation += 180 * deltaTime;
+
+    // Move the player if they're holding W
+    if (IsKeyDown(KEY_W)) {
+        
+        // Move the player based off of their angle
+        float rad = (player->rotation - 90) * (M_PI / 180);
+        player->vy += sin(rad) * player->speed * deltaTime;
+        player->vx += cos(rad) * player->speed * deltaTime;
+    }
 
     player->y += player->vy * deltaTime;
+    player->x += player->vx * deltaTime;
 
     totalTime += deltaTime;
         
@@ -91,6 +114,7 @@ int main() {
 
     // Open the window
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Skybound");
+    SetTargetFPS(60);
 
     // Create the player character
     Character player = initCharacter();
