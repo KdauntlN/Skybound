@@ -5,6 +5,12 @@
 const int SCREEN_WIDTH = 270;
 const int SCREEN_HEIGHT = 480;
 
+// Global timekeeper variable
+float timeSinceLastFrame;
+
+// Timekeeper for player animation
+float totalTime = 0;
+
 // Create a struct to keep track of character values
 typedef struct {
 
@@ -20,6 +26,7 @@ typedef struct {
     Texture2D jetpackOff;
     Texture2D jetpackOn1;
     Texture2D jetpackOn2;
+    int textureNumber;
 
 } Character;
 
@@ -33,8 +40,8 @@ Character initCharacter() {
     character.height = 20;
 
     // Place the character in the centre of the screen
-    character.x = SCREEN_WIDTH / 2 - character.width / 2;
-    character.y = SCREEN_HEIGHT / 2 - character.height / 2;
+    character.x = SCREEN_WIDTH / 2;
+    character.y = SCREEN_HEIGHT / 2;
 
     // Define speed in x and y directions
     character.vx = 0;
@@ -50,8 +57,20 @@ Character initCharacter() {
     character.jetpackOn1 = LoadTexture("assets/jetpack-on-1.png");
     character.jetpackOn2 = LoadTexture("assets/jetpack-on-2.png");
 
+    //Set texture to 0
+    character.textureNumber = 0;
+
     // Return the charater
     return character;
+}
+
+void drawCharacter(Character player) {
+
+    if (IsKeyDown(KEY_W)) {
+        DrawTexturePro(player.textureNumber ? player.jetpackOn1:player.jetpackOn2, (Rectangle) {0, 0, 20, 20}, (Rectangle) {player.x, player.y, player.width, player.height}, (Vector2) {player.width / 2, player.height / 2}, player.rotation, WHITE);
+    } else {
+        DrawTexturePro(player.jetpackOff, (Rectangle) {0, 0, 20, 20}, (Rectangle) {player.x, player.y, player.width, player.height}, (Vector2) {player.width / 2, player.height / 2}, player.rotation, WHITE);
+    }
 }
 
 int main() {
@@ -66,6 +85,17 @@ int main() {
     while (!WindowShouldClose()) {
         BeginDrawing();
         ClearBackground(RAYWHITE);  // Clear the screen
+
+        timeSinceLastFrame = GetFrameTime();
+        totalTime += timeSinceLastFrame;
+        
+        if (totalTime > 0.25) {
+            player.textureNumber = !player.textureNumber;
+            totalTime = 0;
+        }
+
+        drawCharacter(player);
+
         EndDrawing();
     }
 
